@@ -82,6 +82,7 @@ class TicketView extends View {
                 }
             }
             $this->page = str_replace('{action}', $actions,$this->page);
+            $this->page = str_replace('{idTicket}', $ticket['id_ticket'],$this->page);
             $this->displayPage();
     }
     
