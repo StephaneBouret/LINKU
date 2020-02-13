@@ -1,6 +1,6 @@
 <?php
 
-class ContactModel extends Model
+class TicketModel extends Model
 {
 
     /**

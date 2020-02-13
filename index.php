@@ -5,13 +5,13 @@ session_start();
 include 'View/View.php';
 include 'Controller/Controller.php';
 include 'Model/Model.php';
-include 'Controller/ContactController.php';
+include 'Controller/TicketController.php';
 
 
 if(isset ($_GET['controller'])) {
     $controllerStart = ucfirst($_GET['controller'] ."Controller");
 } else {
-    $controllerStart = 'ContactController';
+    $controllerStart = 'TicketController';
 } 
 
 $controller = new $controllerStart();

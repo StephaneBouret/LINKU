@@ -1,9 +1,9 @@
 <?php
 
-include 'View/ContactView.php';
-include 'Model/ContactModel.php';
+include 'View/TicketView.php';
+include 'Model/TicketModel.php';
 
-class ContactController extends Controller {
+class TicketController extends Controller {
 
         /**
      * Mise en place de la connexion vers la DB
@@ -12,8 +12,8 @@ class ContactController extends Controller {
 
     public function __construct()
     {
-      $this->view = new ContactView();
-      $this->model = new ContactModel();
+      $this->view = new TicketView();
+      $this->model = new TicketModel();
     }
 
         /**

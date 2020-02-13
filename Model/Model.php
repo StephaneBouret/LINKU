@@ -1,24 +1,34 @@
 <?php
 
-abstract class Model {
+abstract class Model 
+{
     const SERVER = "localhost";
     const USER = "root";
     const PASSWORD = "";
     const BASE = "news"; 
 
-    /**
-     * Mise en place de la connexion au serveur
-     * @return void
-     */
+    // define('SERVER' ,"sqlprive-pc2372-001.privatesql.ha.ovh.net");
+    // define('USER' ,"cefiidev966");
+    // define('PASSWORD' ,"4Lwc5pW3");
+    // define('BASE' ,"cefiidev966");
 
+    protected $connexion;
+
+    /**
+     * Connexion à la BDD en PHP en local ou à distance
+     */
     public function __construct()
     {
+        // Connexion
         try {
-            $this->connexion = new PDO("mysql:host=" . self::SERVER . ";dbname=" . self::BASE . ";charset=UTF8", self::USER, self::PASSWORD);
-            $this->connexion->exec("SET NAMES 'UTF8'");
+            $this->connexion = new PDO("mysql:host=" . self::SERVER . ";dbname="
+            . self::BASE, self::USER, self::PASSWORD);
         } catch (Exception $e) {
-            echo "Echec de la connexion" . $e->getMessage();
+            echo 'Erreur : ' . $e->getMessage();
         }
+        //Résoudre problèmes d'encodages (accents)
+        $this->connexion->exec("SET NAMES 'UTF8'");
+
     }
 
     

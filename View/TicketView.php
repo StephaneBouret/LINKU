@@ -1,7 +1,7 @@
 <?php 
 
 
-class ContactView extends View {
+class TicketView extends View {
 
         /**
      * Gestion de l'affichage du tableau
