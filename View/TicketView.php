@@ -56,8 +56,10 @@ class TicketView extends View {
         * @param [type] $ticket
         * @return void
         */
-        public function modal($ticket){
+        public function modal($ticket,$listActionsByTicket){
             // var_dump($ticket);
+            // var_dump($listActionsByTicket);
+            $actionDate = date("d-m-Y", strtotime($ticket['date']));
             $this->page .= file_get_contents('template/detail.html');
             $this->page = str_replace('{numTicket}',$ticket['id_ticket'],$this->page);
             $this->page = str_replace('{nom}',$ticket['nom'],$this->page);
@@ -68,9 +70,18 @@ class TicketView extends View {
             $this->page = str_replace('{categorie}',$ticket['categories'],$this->page);
             $this->page = str_replace('{statut}',$ticket['desc_statut'],$this->page);
             $this->page = str_replace('{message}',$ticket['desc_ticket'],$this->page);
-            $this->page = str_replace('{numAction}',$ticket['id_action'],$this->page);
-            $this->page = str_replace('{descAction}',$ticket['desc_action'],$this->page);
-            $this->page = str_replace('{techn}',$ticket['display_name'],$this->page);
+            $actions = "";
+            foreach ($listActionsByTicket as $actionsByTicket) {
+                if ($ticket['id_ticket'] == $actionsByTicket['id_ticket']){
+                    $actions .= "<div class='d-flex justify-content-between'>
+                    <p class='col-3'>N° : ".$actionsByTicket['id_action']."</p>
+                    <p class='col-3'>Date : ".date("d-m-Y", strtotime($actionsByTicket['date']))."</p>
+                    <p class='col-3'>Description : ".$actionsByTicket['desc_action']."</p>
+                    <p class='col-3'> Intervenant : ".$actionsByTicket['display_name']."</p>
+                    </div>";
+                }
+            }
+            $this->page = str_replace('{action}', $actions,$this->page);
             $this->displayPage();
     }
     

@@ -42,4 +42,23 @@ class TicketModel extends Model
         return $ticket;
     }
 
+        /**
+     * Fonction affichage de la BDD action par ticket
+     *
+     * @return void
+     */
+    public function getActionsByTicket()
+    {
+        $requete = "SELECT *, a.id as id_action, t.id as id_ticket, 
+        a.description as desc_action, u.ID as id_user
+        FROM linku_action as a 
+        LEFT JOIN linku_ticket as t 
+        ON a.id_linku_ticket = t.id
+        LEFT JOIN linku_users as u 
+        ON a.id_linku_users = u.ID";
+        $result = $this->connexion->query($requete);
+        $listActionsByTicket = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $listActionsByTicket;
+    }
+
 }

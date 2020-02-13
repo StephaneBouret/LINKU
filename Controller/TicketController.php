@@ -35,7 +35,8 @@ class TicketController extends Controller {
      */
     public function modal(){
         $ticket = $this->model->getTicket();
-        $this->view->modal($ticket);
+        $listActionsByTicket = $this->model->getActionsByTicket();
+        $this->view->modal($ticket, $listActionsByTicket);
     }
 
 }
