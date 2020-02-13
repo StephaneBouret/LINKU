@@ -1,27 +1,28 @@
 <section class="col-12">
-    <h2 class="text-center">Demande du client numéro ...</h2>
+    <h2 class="text-center">Demande du client numéro {numTicket}</h2>
     <article class="mt-4 mb-3 col-12 d-flex justify-content-between">
         <div class="col-3">
-            <p>Nom : </p>
+            <p>Nom : {nom}</p>
         </div>
         <div class="col-3">
-            <p>Prénom : </p>
+            <p>Prénom : {prenom}</p>
         </div>
         <div class="col-3">
-            <p>Email : </p>
+            <p>Email : {email}</p>
         </div>
         <div class="col-3">
-            <p>Téléphone : </p>
+            <p>Téléphone : {tel}</p>
         </div>
     </article>
     <article class="col-12">
         <h3 class="text-center">Message</h3>
-        <div class="col-12 d-flex">
-            <p class="col-6"> Sujet :</p>
-            <p class="col-6"> Catégorie :</p>
+        <div class="d-flex justify-content-between">
+            <p class="col-4"> Sujet : {sujet}</p>
+            <p class="col-4"> Catégorie : {categorie}</p>
+            <p class="col-4"> Statut du ticket : {statut}</p>
         </div>
         <div class="col-12 card">
-            <span class="col-12 card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aut repellat at quo deserunt possimus ullam, similique suscipit illum ab nisi tempora sit explicabo saepe. Vero eos odio a cupiditate?</span>
+            <span class="col-12 card-body">{message}</span>
         </div>
     </article>
 </section>
@@ -29,11 +30,17 @@
     <article>
         <h3 class="text-center">Historique des actions</h3>
         <div class="d-flex justify-content-between">
-            
+            <p class="col-4"> Numéro de l'action : {numAction}</p>
+            <p class="col-4"> Description : {descAction}</p>
+            <p class="col-4"> Intervenant : {techn}</p>
         </div>
     </article>
     <article class="mt-4 mb-4 d-flex justify-content-between">
-        <button class="btn btn-danger p2 col-5 ">AJOUTER UNE ACTION</button>
-        <button class="btn btn-success p-2 col-5">CLORE UNE ACTION</button>
+        <a class="col-6" href="index.php?controller=adherent">
+            <button class="btn btn-danger p2 col-5 ">AJOUTER UNE ACTION</button>
+        </a>
+        <a class="col-6" href="index.php?controller=adherent">
+            <button class="btn btn-success p-2 col-5">CLORE UNE ACTION</button>
+        </a>
     </article>
 </section>

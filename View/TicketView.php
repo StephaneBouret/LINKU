@@ -31,7 +31,7 @@ class TicketView extends View {
                     $this->page .= $actif;
                     $this->page .= '</div>
                     <p class="card-text">'.mb_strimwidth($ticket['desc_ticket'], 0, 60, "[...]").'</p>
-                    <a href="#" class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
+                    <a href="index.php?controller=ticket&action=modal&id=' . $ticket['id_ticket'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
                 </div></div>';
                 // VERSION TABLETTE / SMARTPHONE
                 $this->page .= '<div class="card d-sm-block d-md-none bg-success text-white mt-4 mb-4">
@@ -49,5 +49,29 @@ class TicketView extends View {
            // $this->page .= file_get_contents('template/detail.html');
             $this->displayPage();
         }
+
+        /**
+        * Affichage d'un ticket
+        *
+        * @param [type] $ticket
+        * @return void
+        */
+        public function modal($ticket){
+            // var_dump($ticket);
+            $this->page .= file_get_contents('template/detail.html');
+            $this->page = str_replace('{numTicket}',$ticket['id_ticket'],$this->page);
+            $this->page = str_replace('{nom}',$ticket['nom'],$this->page);
+            $this->page = str_replace('{prenom}',$ticket['prenom'],$this->page);
+            $this->page = str_replace('{email}',$ticket['email'],$this->page);
+            $this->page = str_replace('{tel}',$ticket['tel'],$this->page);
+            $this->page = str_replace('{sujet}',$ticket['sujet'],$this->page);
+            $this->page = str_replace('{categorie}',$ticket['categories'],$this->page);
+            $this->page = str_replace('{statut}',$ticket['desc_statut'],$this->page);
+            $this->page = str_replace('{message}',$ticket['desc_ticket'],$this->page);
+            $this->page = str_replace('{numAction}',$ticket['id_action'],$this->page);
+            $this->page = str_replace('{descAction}',$ticket['desc_action'],$this->page);
+            $this->page = str_replace('{techn}',$ticket['display_name'],$this->page);
+            $this->displayPage();
+    }
     
 }

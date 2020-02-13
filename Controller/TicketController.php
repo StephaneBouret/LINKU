@@ -16,7 +16,7 @@ class TicketController extends Controller {
       $this->model = new TicketModel();
     }
 
-        /**
+    /**
      * Affichage de la page d'accueil
      * Liste des infos :
      * 
@@ -27,11 +27,15 @@ class TicketController extends Controller {
         $listTickets = $this->model->getTickets();
         $this->view->displayHome($listTickets);
     }
-/*
-    public function addForm() {
-        $listContacts = $this->model->getContact();
-        $this->view->displayForm($listContacts);
+
+    /**
+     * Affichage de la vue du ticket
+     *
+     * @return void
+     */
+    public function modal(){
+        $ticket = $this->model->getTicket();
+        $this->view->modal($ticket);
     }
-*/
 
 }
