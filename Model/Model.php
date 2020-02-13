@@ -5,7 +5,7 @@ abstract class Model
     const SERVER = "localhost";
     const USER = "root";
     const PASSWORD = "";
-    const BASE = "news"; 
+    const BASE = "cefiidev966"; 
 
     // define('SERVER' ,"sqlprive-pc2372-001.privatesql.ha.ovh.net");
     // define('USER' ,"cefiidev966");
