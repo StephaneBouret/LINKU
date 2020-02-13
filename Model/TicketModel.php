@@ -4,24 +4,18 @@ class TicketModel extends Model
 {
 
     /**
-     * Gestion de la BD dans le tableau
+     * Fonction affichage de la BDD ticket
      * @return void
      */
-/*
-    public function getContact()
-    {
-        $requete = "SELECT * FROM tickets";
+    public function getTickets(){
+        $requete = "SELECT *, t.id as id_ticket, t.description as desc_ticket, s.description as desc_statut
+        FROM linku_ticket as t 
+        LEFT JOIN linku_statut as s 
+        ON t.id_linku_statut = s.id
+        WHERE t.id_linku_statut = 1 OR t.id_linku_statut = 2";
         $result = $this->connexion->query($requete);
-        $listContacts = $result->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($listContacts);
-        return $listContacts;
+        $listTickets = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $listTickets;
     }
-*/
-    public function show()
-    {
-       // $new = $this->model->getNew();
-        $this->view->show();
-    }
-
 
 }

@@ -3,12 +3,14 @@
 
 class TicketView extends View {
 
-        /**
-     * Gestion de l'affichage du tableau
+    /**
+     * Affichage de la liste des tickets
+     *
+     * @param [type] $listTickets
      * @return void
      */
-
-    public function displayHome() {
+    public function displayHome($listTickets) {
+        var_dump($listTickets);
             $this->page .="<h1 class='text-center'>LES DEMANDES DE CONTACTS !</h1>";
             $this->page .= "<table class='table text-center col p-2 mt-4 mb-4'>";
             $this->page .= "<thead class='thead-light'><th>Date</th><th>Nom</th><th>Prénom</th><th>E-Mail</th><th>Sujet</th><th>Message</th><th>Voir</th><th>Statut</th></thead>";

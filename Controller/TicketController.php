@@ -24,9 +24,8 @@ class TicketController extends Controller {
      */
 
     public function start() {
-       // $listContacts = $this->model->getContact();
-
-        $this->view->displayHome();
+        $listTickets = $this->model->getTickets();
+        $this->view->displayHome($listTickets);
     }
 /*
     public function addForm() {
