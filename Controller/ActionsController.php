@@ -33,9 +33,10 @@ class ActionsController extends Controller
      */
     public function addDB()
     {
+        $id = $_GET['id'];
         $this->model->updateDB();
         $this->model->addDB();
-        header('location:index.php?controller=ticket');
+        header('location:index.php?controller=ticket&action=modal&id='.$id.'');
     }
 
             /**
