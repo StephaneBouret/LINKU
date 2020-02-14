@@ -22,6 +22,27 @@ class ActionsModel extends Model
         return $listActions;
     }
 
+        /**
+     * Fonction affichage d'une donnée de la BDD action
+     *
+     * @return void
+     */
+    public function getAction(){
+        $id = $_GET['id'];
+        $requete = $this->connexion->prepare("SELECT *, a.id as id_action, t.id as id_ticket, 
+        a.description as desc_action, u.ID as id_user
+        FROM linku_action as a 
+        LEFT JOIN linku_ticket as t 
+        ON a.id_linku_ticket = t.id
+        LEFT JOIN linku_users as u 
+        ON a.id_linku_users = u.ID
+        WHERE a.id = :id");
+        $requete->bindParam(':id', $id);
+        $result = $requete->execute();
+        $action = $requete->fetch(PDO::FETCH_ASSOC);
+        return $action;
+    }
+
     /**
      * Fonction affichage de la table users
      *
@@ -104,6 +125,23 @@ class ActionsModel extends Model
 
         $requete = $this->connexion->prepare("UPDATE linku_ticket SET date_fin=NOW(),id_linku_statut='3' WHERE id=:id");
         $requete->bindParam(':id', $id);
+        $result = $requete->execute();
+        // var_dump($result);
+        // var_dump($requete->errorInfo());
+    }
+
+    /**
+     * Fonction modification de l'action
+     *
+     * @return void
+     */
+    public function updateActionDB()
+    {
+        $id = $_POST['id'];
+        $description = $_POST['description'];
+        $requete = $this->connexion->prepare("UPDATE linku_action SET description = :description WHERE id=:id");
+        $requete->bindParam(':id', $id);
+        $requete->bindParam(':description', $description);
         $result = $requete->execute();
         // var_dump($result);
         // var_dump($requete->errorInfo());

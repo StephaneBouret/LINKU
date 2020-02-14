@@ -31,9 +31,8 @@ class ActionsController extends Controller
      * @return void
      */
     public function modal(){
-        $ticket = $this->model->getTicket();
-        $listActionsByTicket = $this->model->getActionsByTicket();
-        $this->view->modal($ticket, $listActionsByTicket);
+        $action = $this->model->getAction();
+        $this->view->modal($action);
     }
 
     /**
@@ -70,6 +69,26 @@ class ActionsController extends Controller
     public function closeForm(){
         $this->model->closeAction();
         header('location:index.php?controller=ticket');
+    }
+
+            /**
+     * Gestion de la modification d'un item action
+     *
+     * @return void
+     */
+    public function updateForm(){
+        $action = $this->model->getAction();
+        $this->view->updateForm($action);
+    }
+
+            /**
+     * Mise à jour de l'information dans la table action
+     *
+     * @return void
+     */
+    public function updateActionDB(){
+        $this->model->updateActionDB();
+        header('location:index.php?controller=actions');
     }
 
 }

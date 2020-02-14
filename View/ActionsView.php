@@ -21,7 +21,7 @@ class ActionsView extends View
             <div class="card-body">
                 <div class="d-flex">';
                 $this->page .= '</div>
-                <a href="index.php?controller=ticket&action=modal&id=' . $actions['id_ticket'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
+                <a href="index.php?controller=actions&action=modal&id=' . $actions['id_action'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
             </div></div>';
         //     // VERSION TABLETTE / SMARTPHONE
             $this->page .= '<div class="card d-sm-block d-md-none bg-success text-white mt-4 mb-4">
@@ -46,31 +46,15 @@ class ActionsView extends View
         * @param [type] $ticket,$listActionsByTicket
         * @return void
         */
-        public function modal($ticket,$listActionsByTicket){
-            $actionDate = date("d-m-Y", strtotime($ticket['date']));
+        public function modal($action){
+            // var_dump($action);
+            $actionDate = date("d-m-Y", strtotime($action['date']));
             $this->page .= file_get_contents('template/detailAction.html');
-            $this->page = str_replace('{numTicket}',$ticket['id_ticket'],$this->page);
-            $this->page = str_replace('{nom}',$ticket['nom'],$this->page);
-            $this->page = str_replace('{prenom}',$ticket['prenom'],$this->page);
-            $this->page = str_replace('{email}',$ticket['email'],$this->page);
-            $this->page = str_replace('{tel}',$ticket['tel'],$this->page);
-            $this->page = str_replace('{sujet}',$ticket['sujet'],$this->page);
-            $this->page = str_replace('{categorie}',$ticket['categories'],$this->page);
-            $this->page = str_replace('{statut}',$ticket['desc_statut'],$this->page);
-            $this->page = str_replace('{message}',$ticket['desc_ticket'],$this->page);
-            $actions = "";
-            foreach ($listActionsByTicket as $actionsByTicket) {
-                if ($ticket['id_ticket'] == $actionsByTicket['id_ticket']){
-                    $actions .= "<div class='d-flex justify-content-between'>
-                    <p class='col-3'>N° : ".$actionsByTicket['id_action']."</p>
-                    <p class='col-3'>Date : ".date("d-m-Y", strtotime($actionsByTicket['date']))."</p>
-                    <p class='col-3'>Description : ".$actionsByTicket['desc_action']."</p>
-                    <p class='col-3'> Intervenant : ".$actionsByTicket['display_name']."</p>
-                    </div>";
-                }
-            }
-            $this->page = str_replace('{action}', $actions,$this->page);
-            $this->page = str_replace('{idTicket}', $ticket['id_ticket'],$this->page);
+            $this->page = str_replace('{numTicket}',$action['id_action'],$this->page);
+            $this->page = str_replace('{description}',$action['desc_action'],$this->page);
+            $this->page = str_replace('{date}',$actionDate,$this->page);
+            $this->page = str_replace('{technician}',$action['display_name'],$this->page);
+            $this->page = str_replace('{idAction}', $action['id_action'],$this->page);
             $this->displayPage();
     }
 
@@ -92,6 +76,24 @@ class ActionsView extends View
         }
         $this->page = str_replace('{intervenant}', $technicians,$this->page);
         $this->page = str_replace('{ticket}', $ticketById['id_ticket'],$this->page);
+        $this->displayPage();
+    }
+
+            /**
+     * Affichage du formulaire contenant l'information action à modifier
+     *
+     * @param [type] $action
+     * @return void
+     */
+    public function updateForm($action){
+        // var_dump($action);
+        $this->page .= "<h1>Modification d'une action</h1>";
+        $this->page .= file_get_contents('template/formActionUpdate.html');
+        $this->page = str_replace('{action}','updateActionDB',$this->page);
+        $this->page = str_replace('{id}',$action['id_action'],$this->page);
+        $this->page = str_replace('{date}',$action['date'],$this->page);
+        $this->page = str_replace('{technician}',$action['display_name'],$this->page);
+        $this->page = str_replace('{description}', $action['desc_action'],$this->page);
         $this->displayPage();
     }
 

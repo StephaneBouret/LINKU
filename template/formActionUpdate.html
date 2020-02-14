@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12 mb-md-0 mb-5">
+        <form action="index.php?controller=actions&action={action}" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="mt-2 col-md-12">
+                    <div class="md-form mb-0">
+                        <label for="id" class="">Id :</label>
+                        <input type="text" id="id" name="id" value="{id}" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="mt-2 col-md-12">
+                    <div class="md-form mb-0">
+                        <label for='description'>Description:</label>
+                        <textarea id="description" name="description" class="form-control" cols="30" rows="15">{description}</textarea>
+                    </div>
+                </div>
+                <div class="mt-2 col-md-6">
+                    <div class="md-form mb-0">
+                        <label for="date" class="">Date :</label>
+                        <input type="date" id="date" name="date" value="{date}" readonly
+                            class="form-control">
+                    </div>
+                </div>
+                    <div class="mt-2 col-md-6">
+                        <div class="md-form mb-0">
+                            <label for="intervenant" class="">Intervenant :</label>
+                            <input type="text" id="intervenant" name="intervenant" value="{technician}" readonly
+                            class="form-control">
+                        </div>
+                    </div>
+            </div>
+            <div class="text-center text-md-left mt-3 mb-5">
+                <input class="btn btn-primary" type="submit" value="Modifier">
+            </div>
+        </form>
+    </div>
+</div>
