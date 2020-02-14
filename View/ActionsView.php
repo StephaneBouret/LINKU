@@ -11,7 +11,7 @@ class ActionsView extends View
     public function displayHome($listActions) {
         $this->page .="<h1 class='text-center'>LES ACTIONS !</h1>";
         foreach ($listActions as $actions) {
-            var_dump($actions);
+            // var_dump($actions);
             $newDate = date("d-m-Y", strtotime($actions['date']));
             // VERSION DESKSTOP
             $this->page .= '<div class="card d-none d-md-block mt-4 mb-4 ">
@@ -21,7 +21,7 @@ class ActionsView extends View
             <div class="card-body">
                 <div class="d-flex">';
                 $this->page .= '</div>
-                <a href="index.php?controller=ticket&action=modal&id=' . $actions['id_action'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
+                <a href="index.php?controller=ticket&action=modal&id=' . $actions['id_ticket'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
             </div></div>';
         //     // VERSION TABLETTE / SMARTPHONE
             $this->page .= '<div class="card d-sm-block d-md-none bg-success text-white mt-4 mb-4">
@@ -35,24 +35,43 @@ class ActionsView extends View
                 <a href="#" class="btn btn-primary col-3">Go somewhere</a>
             </div>
             </div>';
-            // VERSION TABLETTE / SMARTPHONE
-           $this->page .= '<div class="card d-sm-block d-md-none mt-4 mb-4">';
-            $statut = '<div class="card-header"><h4>';
-            if ($ticket['id_linku_statut'] == 3) { 
-                $statut = '<div class="card-header bg-success text-white"><h4>';
-            }
-            $this->page .= $statut;
-            $this->page .= strftime(" %d %m %G", strtotime($ticket['date_debut'])) ."</h4> " .$ticket['prenom'] ." " .$ticket['nom']
-            .'</div>
-            <div class="card-body">
-                <h5 class="card-title">Sujet : ' . $ticket['sujet'] .'</h5>
-                <p class="card-text">'.mb_strimwidth($ticket['desc_ticket'], 0, 60, "[...]").'</p>
-                <a href="index.php?controller=ticket&action=modal&id=' . $ticket['id_ticket'] .' "class="btn btn-warning col-12 mr-4"><i class="fas fa-eye"></i></a>
-            </div>
-            </div>';  
         }
        // $this->page .= file_get_contents('template/detail.html');
         $this->displayPage();
+    }
+
+            /**
+        * Affichage d'une action
+        *
+        * @param [type] $ticket,$listActionsByTicket
+        * @return void
+        */
+        public function modal($ticket,$listActionsByTicket){
+            $actionDate = date("d-m-Y", strtotime($ticket['date']));
+            $this->page .= file_get_contents('template/detailAction.html');
+            $this->page = str_replace('{numTicket}',$ticket['id_ticket'],$this->page);
+            $this->page = str_replace('{nom}',$ticket['nom'],$this->page);
+            $this->page = str_replace('{prenom}',$ticket['prenom'],$this->page);
+            $this->page = str_replace('{email}',$ticket['email'],$this->page);
+            $this->page = str_replace('{tel}',$ticket['tel'],$this->page);
+            $this->page = str_replace('{sujet}',$ticket['sujet'],$this->page);
+            $this->page = str_replace('{categorie}',$ticket['categories'],$this->page);
+            $this->page = str_replace('{statut}',$ticket['desc_statut'],$this->page);
+            $this->page = str_replace('{message}',$ticket['desc_ticket'],$this->page);
+            $actions = "";
+            foreach ($listActionsByTicket as $actionsByTicket) {
+                if ($ticket['id_ticket'] == $actionsByTicket['id_ticket']){
+                    $actions .= "<div class='d-flex justify-content-between'>
+                    <p class='col-3'>N° : ".$actionsByTicket['id_action']."</p>
+                    <p class='col-3'>Date : ".date("d-m-Y", strtotime($actionsByTicket['date']))."</p>
+                    <p class='col-3'>Description : ".$actionsByTicket['desc_action']."</p>
+                    <p class='col-3'> Intervenant : ".$actionsByTicket['display_name']."</p>
+                    </div>";
+                }
+            }
+            $this->page = str_replace('{action}', $actions,$this->page);
+            $this->page = str_replace('{idTicket}', $ticket['id_ticket'],$this->page);
+            $this->displayPage();
     }
 
     /**

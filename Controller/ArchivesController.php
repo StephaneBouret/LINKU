@@ -31,8 +31,8 @@ class ArchivesController extends Controller
      * @return void
      */
     public function modal(){
-        $archive = $this->model->getTicket();
-        $listActionsByArchive = $this->model->getActionsByTicket();
+        $archive = $this->model->getArchive();
+        $listActionsByArchive = $this->model->getActionsByArchive();
         $this->view->modal($archive, $listActionsByArchive);
     }
 

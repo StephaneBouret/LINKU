@@ -14,8 +14,8 @@ class TicketView extends View {
             foreach ($listTickets as $ticket) {
                 $newDate = date("d-m-Y H:i:s", strtotime($ticket['date_debut']));
                 // VERSION DESKSTOP
-                $this->page .= '<div class="card d-none d-md-block mt-4 mb-4 ">
-                <div class="card-header bg-success text-white"><h5>'
+                $this->page .= '<div class="card d-none d-md-block mt-4 mb-4">
+                <div class="card-header bg-dark text-white"><h5>'
                 . $newDate ." " .$ticket['prenom'] ." " .$ticket['nom']
                 .'</h5></div>
                 <div class="card-body">
@@ -32,35 +32,25 @@ class TicketView extends View {
                     <p class="card-text">'.mb_strimwidth($ticket['desc_ticket'], 0, 60, "[...]").'</p>
                     <a href="index.php?controller=ticket&action=modal&id=' . $ticket['id_ticket'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
                 </div></div>';
-                // VERSION TABLETTE / SMARTPHONE
-                $this->page .= '<div class="card d-sm-block d-md-none bg-success text-white mt-4 mb-4">
-                <div class="card-header"><h4>'
-                .strftime(" %d %m %G", strtotime($ticket['date_debut'])) ."</h4> " .$ticket['prenom'] ." " .$ticket['nom']
-                .'</div>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-warning col-1 col-md-4 mr-4"><i class="fas fa-eye"></i></a>
-                    <a href="#" class="btn btn-primary col-3">Go somewhere</a>
-                </div>
-                </div>';
-                // VERSION TABLETTE / SMARTPHONE
-               $this->page .= '<div class="card d-sm-block d-md-none mt-4 mb-4">';
-                $statut = '<div class="card-header"><h4>';
-                if ($ticket['id_linku_statut'] == 3) { 
-                    $statut = '<div class="card-header bg-success text-white"><h4>';
-                }
-                $this->page .= $statut;
-                $this->page .= strftime(" %d %m %G", strtotime($ticket['date_debut'])) ."</h4> " .$ticket['prenom'] ." " .$ticket['nom']
-                .'</div>
-                <div class="card-body">
-                    <h5 class="card-title">Sujet : ' . $ticket['sujet'] .'</h5>
-                    <p class="card-text">'.mb_strimwidth($ticket['desc_ticket'], 0, 60, "[...]").'</p>
-                    <a href="index.php?controller=ticket&action=modal&id=' . $ticket['id_ticket'] .' "class="btn btn-warning col-12 mr-4"><i class="fas fa-eye"></i></a>
-                </div>
-                </div>';  
+
+            // VERSION TABLETTE / SMARTPHONE
+            $this->page .= '<div class="card d-sm-block d-md-none mt-4 mb-4">';
+            $statut = '<div class="card-header"><h4>';
+            if ($ticket['id_linku_statut'] == 1) { 
+                $statut = '<div class="card-header bg-danger text-white"><h4>';
+            } elseif ($ticket['id_linku_statut'] == 2){
+                $statut = '<div class="card-header bg-warning text-white"><h4>';
             }
-           // $this->page .= file_get_contents('template/detail.html');
+            $this->page .= $statut;
+            $this->page .= strftime(" %d %m %G", strtotime($ticket['date_debut'])) ."</h4> " .$ticket['prenom'] ." " .$ticket['nom']
+            .'</div>
+            <div class="card-body">
+                <h5 class="card-title">Sujet : ' . $ticket['sujet'] .'</h5>
+                <p class="card-text">'.mb_strimwidth($ticket['desc_ticket'], 0, 60, "[...]").'</p>
+                <a href="index.php?controller=ticket&action=modal&id=' . $ticket['id_ticket'] .' "class="btn btn-warning col-12 mr-4"><i class="fas fa-eye"></i></a>
+            </div>
+            </div>';  
+            }
             $this->displayPage();
         }
 
@@ -82,14 +72,26 @@ class TicketView extends View {
             $this->page = str_replace('{categorie}',$ticket['categories'],$this->page);
             $this->page = str_replace('{statut}',$ticket['desc_statut'],$this->page);
             $this->page = str_replace('{message}',$ticket['desc_ticket'],$this->page);
+            $background = "";
+            if ($ticket['desc_statut'] == "Non traité"){
+                $background = "bg-danger";
+            } elseif ($ticket['desc_statut'] == "En cours de traitement"){
+                $background = "bg-warning";
+            } elseif ($ticket['desc_statut'] == "Traité"){
+                $background = "bg-success";
+            };
+            $this->page = str_replace('{background}',$background,$this->page);
             $actions = "";
             foreach ($listActionsByTicket as $actionsByTicket) {
                 if ($ticket['id_ticket'] == $actionsByTicket['id_ticket']){
-                    $actions .= "<div class='d-flex justify-content-between'>
-                    <p class='col-3'>N° : ".$actionsByTicket['id_action']."</p>
-                    <p class='col-3'>Date : ".date("d-m-Y", strtotime($actionsByTicket['date']))."</p>
-                    <p class='col-3'>Description : ".$actionsByTicket['desc_action']."</p>
-                    <p class='col-3'> Intervenant : ".$actionsByTicket['display_name']."</p>
+                    $actions .= "
+                    <div class='list-group-item d-flex bg-dark text-white justify-content-between'>
+                    <h6 class='col-5 mt-2 text-left'> Date: " .date("d-m-Y", strtotime($actionsByTicket['date'])) ."</h6>
+                    <h6 class='col-7 mt-2 text-left'> Intervenant : " .$actionsByTicket['display_name'] ."</h6>
+                    </div>
+                        <div class='list-group-item d-flex justify-content-around'>
+                            <h5 class='col-4 mt-2'> Action N° " .$actionsByTicket['id_action'] ."</h5>
+                            <p class='col-7'>" .$actionsByTicket['desc_action'] ."</p>
                     </div>";
                 }
             }

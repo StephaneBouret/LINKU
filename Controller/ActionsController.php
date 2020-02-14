@@ -25,6 +25,17 @@ class ActionsController extends Controller
         $this->view->displayHome($listActions);
     }
 
+        /**
+     * Affichage de la vue d'une action
+     *
+     * @return void
+     */
+    public function modal(){
+        $ticket = $this->model->getTicket();
+        $listActionsByTicket = $this->model->getActionsByTicket();
+        $this->view->modal($ticket, $listActionsByTicket);
+    }
+
     /**
      * Gestion de l'affichage du formulaire d'ajout d'une action
      *

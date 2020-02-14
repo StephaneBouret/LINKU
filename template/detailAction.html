@@ -1,0 +1,42 @@
+<section class="col-12">
+    <h2 class="text-center">Demande du client numéro {numTicket}</h2>
+    <article class="mt-4 mb-3 col-12 d-flex justify-content-between">
+        <div class="col-3">
+            <p>Nom : {nom}</p>
+        </div>
+        <div class="col-3">
+            <p>Prénom : {prenom}</p>
+        </div>
+        <div class="col-3">
+            <p>Email : {email}</p>
+        </div>
+        <div class="col-3">
+            <p>Téléphone : {tel}</p>
+        </div>
+    </article>
+    <article class="col-12">
+        <h3 class="text-center">Message</h3>
+        <div class="d-flex justify-content-between">
+            <p class="col-4"> Sujet : {sujet}</p>
+            <p class="col-4"> Catégorie : {categorie}</p>
+            <p class="col-4"> Statut du ticket : {statut}</p>
+        </div>
+        <div class="col-12 card">
+            <span class="col-12 card-body">{message}</span>
+        </div>
+    </article>
+</section>
+<section class="col-12">
+    <article>
+        <h3 class="text-center">Historique des actions</h3>
+        {action}
+    </article>
+    <article class="mt-4 mb-4 d-flex justify-content-between">
+        <a class="col-6" href="index.php?controller=actions&action=addForm&id={idTicket}">
+            <button class="btn btn-danger p2 col-5 ">AJOUTER UNE ACTION</button>
+        </a>
+        <a id="closeTicket" class="col-6" href="index.php?controller=actions&action=closeForm&id={idTicket}">
+            <button class="btn btn-success p-2 col-5">CLORE LE TICKET</button>
+        </a>
+    </article>
+</section>
