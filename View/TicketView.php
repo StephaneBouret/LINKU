@@ -10,7 +10,6 @@ class TicketView extends View {
      * @return void
      */
     public function displayHome($listTickets) {
-        // var_dump($listTickets);
             $this->page .="<h1 class='text-center'>LES DEMANDES DE CONTACTS !</h1>";
             foreach ($listTickets as $ticket) {
                 $newDate = date("d-m-Y H:i:s", strtotime($ticket['date_debut']));
@@ -57,8 +56,6 @@ class TicketView extends View {
         * @return void
         */
         public function modal($ticket,$listActionsByTicket){
-            // var_dump($ticket);
-            // var_dump($listActionsByTicket);
             $actionDate = date("d-m-Y", strtotime($ticket['date']));
             $this->page .= file_get_contents('template/detail.html');
             $this->page = str_replace('{numTicket}',$ticket['id_ticket'],$this->page);

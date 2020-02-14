@@ -6,6 +6,7 @@ include 'View/View.php';
 include 'Controller/Controller.php';
 include 'Model/Model.php';
 include 'Controller/TicketController.php';
+include 'Controller/ActionsController.php';
 
 
 if(isset ($_GET['controller'])) {
