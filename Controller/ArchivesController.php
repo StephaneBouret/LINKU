@@ -25,15 +25,14 @@ class ArchivesController extends Controller
         $this->view->displayHome($listArchives);
     }
 
-    ​
     /**
      * Affichage de la vue de l'archive
      *
      * @return void
      */
     public function modal(){
-        $archive = $this->model->getArchive();
-        $listActionsByArchive = $this->model->getActionsByArchive();
+        $archive = $this->model->getTicket();
+        $listActionsByArchive = $this->model->getActionsByTicket();
         $this->view->modal($archive, $listActionsByArchive);
     }
 

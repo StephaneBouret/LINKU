@@ -41,7 +41,7 @@ class ArchivesModel extends Model
         $archive = $requete->fetch(PDO::FETCH_ASSOC);
         return $archive;
     }
-​
+
     /**
      * Fonction affichage de la BDD action archivée
      *
@@ -60,6 +60,5 @@ class ArchivesModel extends Model
         $listActionsByArchive = $result->fetchAll(PDO::FETCH_ASSOC);
         return $listActionsByArchive;
     }
-
 
 }
