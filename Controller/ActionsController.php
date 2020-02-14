@@ -13,6 +13,18 @@ class ActionsController extends Controller
         $this->model = new ActionsModel();
     }
 
+        /**
+     * Affichage de la page d'accueil
+     * Liste des infos :
+     * 
+     * @return void
+     */
+
+    public function start() {
+        $listActions = $this->model->getActions();
+        $this->view->displayHome($listActions);
+    }
+
     /**
      * Gestion de l'affichage du formulaire d'ajout d'une action
      *
