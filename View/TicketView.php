@@ -43,7 +43,22 @@ class TicketView extends View {
                     <a href="#" class="btn btn-warning col-1 col-md-4 mr-4"><i class="fas fa-eye"></i></a>
                     <a href="#" class="btn btn-primary col-3">Go somewhere</a>
                 </div>
-                </div>'; 
+                </div>';
+                // VERSION TABLETTE / SMARTPHONE
+               $this->page .= '<div class="card d-sm-block d-md-none mt-4 mb-4">';
+                $statut = '<div class="card-header"><h4>';
+                if ($archive['id_linku_statut'] == 3) { 
+                    $statut = '<div class="card-header bg-success text-white"><h4>';
+                }
+                $this->page .= $statut;
+                $this->page .= strftime(" %d %m %G", strtotime($archive['date_debut'])) ."</h4> " .$archive['prenom'] ." " .$archive['nom']
+                .'</div>
+                <div class="card-body">
+                    <h5 class="card-title">Sujet : ' . $archive['sujet'] .'</h5>
+                    <p class="card-text">'.mb_strimwidth($archive['desc_ticket'], 0, 60, "[...]").'</p>
+                    <a href="index.php?controller=ticket&action=modal&id=' . $archive['id_ticket'] .' "class="btn btn-warning col-12 mr-4"><i class="fas fa-eye"></i></a>
+                </div>
+                </div>';  
             }
            // $this->page .= file_get_contents('template/detail.html');
             $this->displayPage();
