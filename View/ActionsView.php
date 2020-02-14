@@ -11,7 +11,7 @@ class ActionsView extends View
     {
         $this->page .= "<h1>Ajout d'une action</h1>";
         $this->page .= file_get_contents('template/formAction.html');
-        $this->page = str_replace('{action}','addDB',$this->page);
+        $this->page = str_replace('{action}','addDB&id='.$ticketById['id'].'&id_statut='.$ticketById['id_linku_statut'].'',$this->page);
         $this->page = str_replace('{id}','',$this->page);
         $this->page = str_replace('{description}','',$this->page);
         $technicians = "";

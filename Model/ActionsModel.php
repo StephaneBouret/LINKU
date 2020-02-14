@@ -61,12 +61,12 @@ class ActionsModel extends Model
     {
         // insert l'info
         $description = $_POST['description'];
-        $ville = $_POST['ville'];
         $technician = $_POST['intervenant'];
         $ticket = $_POST['ticket'];
         $dateAjout = $_POST['dateAjout'];
+        $today = date("Y-m-d H:i:s");
         if (empty($dateAjout)){
-            $dateAjout=NOW();
+            $dateAjout=$today;
         }
 
         $requete = $this->connexion->prepare("INSERT INTO linku_action
@@ -76,8 +76,36 @@ class ActionsModel extends Model
         $requete->bindParam(':id_linku_ticket', $ticket);
         $requete->bindParam(':id_linku_users', $technician);
         $result = $requete->execute();
+    }
+    
+    /**
+     * Fonction modification du statut du ticket suite ajout action
+     *
+     * @return void
+     */
+    public function updateDB()
+    {
+        $id = $_GET['id'];
+        $requete = $this->connexion->prepare("UPDATE linku_ticket SET id_linku_statut = '2' WHERE id=:id");
+        $requete->bindParam(':id', $id);
+        $result = $requete->execute();
         // var_dump($result);
         // var_dump($requete->errorInfo());
     }
 
+        /**
+     * Fonction modification du ticket dans la table ticket
+     *
+     * @return void
+     */
+    public function closeAction()
+    {
+        $id = $_GET['id'];
+
+        $requete = $this->connexion->prepare("UPDATE linku_ticket SET date_fin=NOW(),id_linku_statut='3' WHERE id=:id");
+        $requete->bindParam(':id', $id);
+        $result = $requete->execute();
+        // var_dump($result);
+        // var_dump($requete->errorInfo());
+    }
 }

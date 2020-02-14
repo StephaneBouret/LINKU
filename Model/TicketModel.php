@@ -13,7 +13,7 @@ class TicketModel extends Model
         LEFT JOIN linku_statut as s 
         ON t.id_linku_statut = s.id
         WHERE t.id_linku_statut = 1 OR t.id_linku_statut = 2
-        ORDER BY date_debut, id_linku_statut ASC";
+        ORDER BY id_linku_statut ASC, date_debut ASC";
         $result = $this->connexion->query($requete);
         $listTickets = $result->fetchAll(PDO::FETCH_ASSOC);
         return $listTickets;

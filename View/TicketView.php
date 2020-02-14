@@ -67,7 +67,7 @@ class TicketView extends View {
         /**
         * Affichage d'un ticket
         *
-        * @param [type] $ticket
+        * @param [type] $ticket,$listActionsByTicket
         * @return void
         */
         public function modal($ticket,$listActionsByTicket){

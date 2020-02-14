@@ -33,7 +33,18 @@ class ActionsController extends Controller
      */
     public function addDB()
     {
+        $this->model->updateDB();
         $this->model->addDB();
+        header('location:index.php?controller=ticket');
+    }
+
+            /**
+     * Gestion de la cloture d'une action
+     *
+     * @return void
+     */
+    public function closeForm(){
+        $this->model->closeAction();
         header('location:index.php?controller=ticket');
     }
 
