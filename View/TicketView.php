@@ -92,6 +92,7 @@ class TicketView extends View {
                         <div class='list-group-item d-flex justify-content-around'>
                             <h5 class='col-4 mt-2'> Action N° " .$actionsByTicket['id_action'] ."</h5>
                             <p class='col-7'>" .$actionsByTicket['desc_action'] ."</p>
+                            <p class='col-1'><a href='index.php?controller=actions&action=updateForm&id=".$actionsByTicket['id_action']."' class='btn btn-warning ml-auto mr-auto'><i class='fas fa-pen'></i></a></p>
                     </div>";
                 }
             }
