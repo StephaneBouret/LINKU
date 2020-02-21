@@ -13,27 +13,15 @@ class ActionsView extends View
         foreach ($listActions as $actions) {
             // var_dump($actions);
             $newDate = date("d-m-Y", strtotime($actions['date']));
-            // VERSION DESKSTOP
-            $this->page .= '<div class="card d-none d-md-block mt-4 mb-4 ">
-            <div class="card-header bg-success text-white"><h5>'
-            . $newDate . " " .$actions['desc_action'] ." " .$actions['display_name']
-            .'</h5></div>
-            <div class="card-body">
-                <div class="d-flex">';
-                $this->page .= '</div>
-                <a href="index.php?controller=actions&action=modal&id=' . $actions['id_action'] .' "class="btn btn-warning mr-4"><i class="fas fa-eye"></i></a>
-            </div></div>';
-        //     // VERSION TABLETTE / SMARTPHONE
-            $this->page .= '<div class="card d-sm-block d-md-none bg-success text-white mt-4 mb-4">
-            <div class="card-header"><h4>'
-            .strftime(" %d %m %G", strtotime($actions['date'])) ."</h4> " .$actions['desc_action'] ." " .$actions['display_name']
-            .'</div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-warning col-1 col-md-4 mr-4"><i class="fas fa-eye"></i></a>
-                <a href="#" class="btn btn-primary col-3">Go somewhere</a>
+            $this->page .= "
+            <div class='list-group-item d-flex bg-dark text-white justify-content-between'>
+                <h6 class='col-5 mt-2 text-left'> Date: " .date("d-m-Y", strtotime($actions['date'])) ."</h6>
+                <h6 class='col-7 mt-2 text-left'> Intervenant : " .$actions['display_name'] ."</h6>
             </div>
+                <div class='list-group-item d-flex justify-content-around'>
+                    <h5 class='col-md-3 col-sm-5 mt-2'> Action N° " .$actions['id_action'] ."</h5>
+                        <p class='col-7 d-none d-lg-block d-xl-block d-md-block'>" .mb_strimwidth($actions['desc_action'], 0, 30, "[...]") .'</p>
+                <a href="index.php?controller=actions&action=modal&id=' . $actions['id_action'] .' "class="btn btn-warning mr-4 col-sm-4 col-md-1"><i class="fas fa-eye"></i></a>
             </div>';
         }
        // $this->page .= file_get_contents('template/detail.html');
@@ -89,7 +77,7 @@ class ActionsView extends View
         // var_dump($action);
         $this->page .= "<h1>Modification d'une action</h1>";
         $this->page .= file_get_contents('template/formActionUpdate.html');
-        $this->page = str_replace('{action}','updateActionDB',$this->page);
+        $this->page = str_replace('{action}','updateActionDB&id='.$action['id_ticket'].'',$this->page);
         $this->page = str_replace('{id}',$action['id_action'],$this->page);
         $this->page = str_replace('{date}',$action['date'],$this->page);
         $this->page = str_replace('{technician}',$action['display_name'],$this->page);
